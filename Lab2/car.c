@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <math.h>
 #include <GL/glut.h>
@@ -12,18 +11,6 @@ GLfloat angle = 1;  // rotational angle of the shapes
 int timer1= 0;
 int forward =1;
 
-void delay(int number_of_seconds) 
-{ 
-    // Converting time into milli_seconds 
-    int milli_seconds = 1000 * number_of_seconds; 
-  
-    // Storing start time 
-    clock_t start_time = clock(); 
-  
-    // looping till required time is not achieved 
-    while (clock() < start_time + milli_seconds) 
-        ; 
-} 
 
 void draw_pixel(int x, int y) {
 	glBegin(GL_POINTS);
@@ -129,9 +116,10 @@ void bresenham_circle(int r)
 }
 void display(void)
 {
+  draw_line(0, 640, 50, 50);
   if(forward == 1)
   {
-    draw_line(0, 640, 50, 50);
+    
  glTranslatef(1, 0, 0);
   xc = 120;
   yc = 100;
