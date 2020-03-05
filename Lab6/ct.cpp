@@ -10,6 +10,8 @@ using namespace std;
 float xmin=-100;
 float ymin=-100;
 float xmax=100;
+int s=0;
+
 float ymax=100;
 
 float xd1,yd1,xd2,yd2;
@@ -104,18 +106,17 @@ void cohen_Line(float x1,float y1,float x2,float y2)
 
 }
 
-// void mykey(unsigned char key,int x,int y)
-// {
-//     if(key=='c')
-//     {  
-//         cohen_Line(xd1,yd1,xd2,yd2);
-//         cohen_Line(xd2,yd2,xd3,yd3);
-//         cohen_Line(xd3,yd3,xd1,yd1);
-//         glFlush();
-//     }
-// }
+void mykey(unsigned char key,int x,int y)
+{
+    if(key=='c')
+    {  
+      s=1;
+      display();
+    }
+}
 void display()
 {
+    if(s==0){
    glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(0.0,1.0,0.0);
 
@@ -134,10 +135,18 @@ void display()
    glVertex2i(xi3,yi3);
    glVertex2i(xi1,yi1);
    glEnd();
-   
-
-
-   
+   glFlush();}
+   else
+   {
+       glClear(GL_COLOR_BUFFER_BIT);
+       glColor3f(0.0,1.0,0.0);
+       glBegin(GL_LINE_LOOP);
+   glVertex2i(xmin,ymin);
+   glVertex2i(xmin,ymax);
+   glVertex2i(xmax,ymax);
+   glVertex2i(xmax,ymin);
+   glEnd();
+         
    xd1=xi1;
    yd1=yi1;
    xd2=xi2;
@@ -171,6 +180,10 @@ void display()
    glVertex2i(xd2,yd2);
    glEnd();
    glFlush();
+   }
+
+
+   
 }
 
 
@@ -189,7 +202,7 @@ int main(int argc,char** argv)
     glutInitWindowPosition(0,0);
     glutCreateWindow("Clipping");
     glutDisplayFunc(display);
-    // glutKeyboardFunc(mykey);
+    glutKeyboardFunc(mykey);
     init();
     glutMainLoop();
     return 0;
